@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 @Entity
 public class User {
 
+    // 속성
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -19,6 +20,20 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    // 생성자
 
 
+
+    // 기능
+    public Long getId() {
+        return id;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 }
