@@ -3,10 +3,12 @@ package com.sion.newsfeed.post;
 import com.sion.newsfeed.post.dto.CreatePostRequestDto;
 import com.sion.newsfeed.post.dto.CreatePostResponseDto;
 import com.sion.newsfeed.post.dto.GetPostByIdResponseDto;
+import com.sion.newsfeed.post.dto.GetPostsAllResponseDto;
 import com.sion.newsfeed.user.User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -74,6 +76,20 @@ public class PostService {
             GetPostByIdResponseDto responseDto = new GetPostByIdResponseDto(400, "존재하지 않는 게시물입니다.");
             return responseDto;
         }
+    }
+
+    public GetPostsAllResponseDto getPostsAllService() {
+        List<Post> postList = postRepository.findAll();
+        GetPostsAllResponseDto responseDto = new GetPostsAllResponseDto(postList, 200, "게시물 조회가 완료됐어요!" );
+        return responseDto;
+    }
+
+    public void updatePostService(Long postId, String title, String content) {
+        Optional<Post> postOptional = postRepository.findById(postId);
+        Post post = postOptional.get();
+        post.updateTitle(title);
+        post.updateContent(content);
+
     }
 
 }

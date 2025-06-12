@@ -51,6 +51,15 @@ public class Post {
 
 
     // 기능
+
+    public void updateTitle(String title) {
+        this.title = title;
+    }
+
+    public void updateContent(String content) {
+        this.content = content;
+    }
+
     public Long getId() {
         return id;
     }
