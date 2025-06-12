@@ -2,8 +2,10 @@ package com.sion.newsfeed.post;
 
 import com.sion.newsfeed.post.dto.CreatePostRequestDto;
 import com.sion.newsfeed.post.dto.CreatePostResponseDto;
+import com.sion.newsfeed.post.dto.GetPostByIdResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +29,14 @@ public class PostController {
         ResponseEntity<CreatePostResponseDto> response = new ResponseEntity<>(responseDto, HttpStatus.OK);
         return response;
     }
+
+    public ResponseEntity<GetPostByIdResponseDto> getPostByIdAPI(@PathVariable Long postId) {
+        GetPostByIdResponseDto responseDto = postService.getPostByIdService(postId);
+        ResponseEntity<GetPostByIdResponseDto> response = new ResponseEntity<>(responseDto, HttpStatus.OK);
+        return response;
+    }
+
+    public void getAllPostsAPI() {}
 
 
 

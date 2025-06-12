@@ -2,10 +2,12 @@ package com.sion.newsfeed.post;
 
 import com.sion.newsfeed.post.dto.CreatePostRequestDto;
 import com.sion.newsfeed.post.dto.CreatePostResponseDto;
+import com.sion.newsfeed.post.dto.GetPostByIdResponseDto;
 import com.sion.newsfeed.user.User;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class PostService {
@@ -52,4 +54,26 @@ public class PostService {
         return responseDto;
 
     }
+
+    public GetPostByIdResponseDto getPostByIdService(Long postId) {
+        Optional<Post> postOptional = postRepository.findById(postId);
+        if (postOptional.isPresent()) {
+            Post post = postOptional.get();
+            User postUser = post.getUser();
+            Long postUserId = postUser.getId();
+            String postTitle = post.getTitle();
+            String postContent = post.getContent();
+            LocalDateTime postCreatedAt = post.getCreatedAt();
+            LocalDateTime postUpdatedAt = post.getUpdatedAt();
+
+            GetPostByIdResponseDto responseDto = new GetPostByIdResponseDto(
+                    postId, postUserId, postTitle, postContent, postCreatedAt, postUpdatedAt, 200, "게시물 조회가 완료되었습니다."
+            );
+            return responseDto;
+        } else {
+            GetPostByIdResponseDto responseDto = new GetPostByIdResponseDto(400, "존재하지 않는 게시물입니다.");
+            return responseDto;
+        }
+    }
+
 }
