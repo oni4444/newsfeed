@@ -26,6 +26,15 @@ public class PostService {
         String content = requestDto.getContent();
 
         // 검증로직
+        if (title == null || title.trim().isEmpty()) {
+            CreatePostResponseDto responseDto = new CreatePostResponseDto(null, null, null, null, 400, "제목을 입력해 주세요!");
+            return responseDto;
+        }
+
+        if (content == null || content.trim().isEmpty()) {
+            CreatePostResponseDto responseDto = new CreatePostResponseDto(null, null, null, null, 400, "내용을 입력해 주세요!");
+            return responseDto;
+        }
 
         // 엔티티 준비
         Post post = new Post(title, content);
@@ -39,7 +48,7 @@ public class PostService {
         LocalDateTime savedPostCreatedAt = savedPost.getCreatedAt();
 
         // responseDto
-        CreatePostResponseDto responseDto = new CreatePostResponseDto(savedPostId, savedPostUserId, savedPostTitle,savedPostCreatedAt, 201, "게시물이 작성되었어요!");
+        CreatePostResponseDto responseDto = new CreatePostResponseDto(savedPostId, savedPostUserId, savedPostTitle, savedPostCreatedAt, 201, "게시물이 작성되었어요!");
         return responseDto;
 
     }

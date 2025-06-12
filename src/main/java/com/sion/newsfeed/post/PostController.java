@@ -1,6 +1,7 @@
 package com.sion.newsfeed.post;
 
 import com.sion.newsfeed.post.dto.CreatePostRequestDto;
+import com.sion.newsfeed.post.dto.CreatePostResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +22,9 @@ public class PostController {
 
     // 기능
     @PostMapping
-    public ResponseEntity<String> createPostAPI(CreatePostRequestDto requestDto) {
-        ResponseEntity<String> response = new ResponseEntity<>("게시물 생성 완료", HttpStatus.OK);
+    public ResponseEntity<CreatePostResponseDto> createPostAPI(CreatePostRequestDto requestDto) {
+        CreatePostResponseDto responseDto = postService.createPostService(requestDto);
+        ResponseEntity<CreatePostResponseDto> response = new ResponseEntity<>(responseDto, HttpStatus.OK);
         return response;
     }
 
